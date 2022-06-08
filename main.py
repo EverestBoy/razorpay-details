@@ -4,8 +4,6 @@ from fastapi import FastAPI, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Request
-from mangum import Mangum
-
 
 
 app = FastAPI()
