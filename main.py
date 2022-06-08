@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("http://18.206.245.117/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
