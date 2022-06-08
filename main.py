@@ -7,7 +7,6 @@ from fastapi import FastAPI, Request
 
 
 app = FastAPI()
-handler = Mangum(app)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
