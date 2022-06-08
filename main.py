@@ -36,7 +36,7 @@ def getPaymentInformation(paymentId):
         keyText = keyFile.read()
         keyFile.close()
 
-        keyText = keyText.split("\n")
+        keyText = keyText.split("$")
         print(keyText)
 
         clientList = []
@@ -140,7 +140,7 @@ def form_post(request: Request):
 def addKey(key, value):
     print(f"adding key and value {key} {value}")
     keyFile = open("keyvalue.txt", 'a+')
-    keyFile.write(f"{key.strip()}#{value.strip()}\n")
+    keyFile.write(f"{key.strip()}#{value.strip()}$")
     keyFile.close()
     return 'key and value added successfully', success_add_class
 
@@ -170,7 +170,7 @@ def deleteKey(key):
     file = open("keyvalue.txt", 'r')
     content = file.read()
     file.close()
-    contentList = content.split("\n")
+    contentList = content.split("$")
     newContent = []
     for contentItem in contentList:
         contentItem = contentItem.strip()
@@ -184,7 +184,7 @@ def deleteKey(key):
                 newContent.append(contentItem)
     
     print(newContent)
-    newContent = "\n".join(newContent)
+    newContent = "$".join(newContent)
     file = open("keyvalue.txt", 'w')
     content = file.write(newContent)
     file.close()
