@@ -1,0 +1,72 @@
+<html lang="en">
+
+<head>
+    <title>Set Razorpay keys</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="cardBig">
+        <h2>Enter the razorpay key and value:</h2>
+        <p>
+        <form method="post">
+            <div class="group">
+                <input type="text" name="secretKey" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>secretKey</label>
+            </div>
+
+            <div class="row">
+                <div class="subgroup">
+                    <input type="text" name="key1">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>key</label>
+                </div>
+                <div class="subgroup">
+                    <input type="text" name="value1">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>value</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="subgroup">
+                    <input type="text" name="key2">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>key</label>
+                </div>
+                <div class="subgroup">
+                    <input type="text" name="value2">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>value</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="subgroup">
+                    <input type="text" name="key3">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>key</label>
+                </div>
+                <div class="subgroup">
+                    <input type="text" name="value3">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>value</label>
+                </div>
+            </div>
+            <button class="btn" type="submit">Submit</button>
+        </form>
+        </p>
+    </div>
+
+
+</body>
+
+</html>

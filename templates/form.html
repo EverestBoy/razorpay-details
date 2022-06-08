@@ -1,0 +1,32 @@
+<html lang="en">
+
+<head>
+    <title>Razor pay details</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="card">
+        <h2>Enter the reference number:</h2>
+        <p>
+            <form method="post">
+                <div class="group">
+                    <input type="text" name="paymentId" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>ref number</label>
+                </div>
+                <button class="btn" type="submit">Submit</button>
+            </form>
+        </p>
+        <p><h3 class={{showResult}}>
+            <p>Result: {{ result }}</p>
+            <p>Message: {{ message }}</p>
+            <p>Amount: {{ amount }}</p>
+        </h3></p>
+    </div>
+
+
+</body>
+
+</html>
