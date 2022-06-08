@@ -1,12 +1,65 @@
 h1 {
     color: green;
 }
-body {
-    line-height: 1;
-    background-color: #f6f6f6;
-}
 .show {
     display: inline;
+}
+html,
+body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 1;
+        background-color: #f6f6f6;
+}
+
+.show-success-delete {
+    display: block;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    font-size: large;
+    margin: auto;
+    padding: 10px;
+    background-color: #dcedc8;
+}
+.show-success-add {
+    display: block;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    font-size: large;
+    margin: auto;
+    padding: 10px;
+    background-color: #dcedc8;
+}
+.show-failure-delete {
+    display: block;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    font-size: large;
+    margin: auto;
+    padding: 10px;
+    background-color: #ffccbc;
+}
+.show-failure-add {
+    display: block;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    font-size: large;
+    margin: auto;
+    padding: 10px;
+    background-color: #ffccbc;
 }
 .hide {
     display: none;
@@ -27,12 +80,23 @@ body {
 
 .row {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column;
+    }
+}
 .card  {
     margin: auto;
+    margin-right: 16px;
+    margin-left: 16px;
+    margin-top: 0px;
+    margin-bottom: 16px;
     width: 400px;
+    min-width: 300px;
     padding: 10px;
     background-color: #ffffff;
     font-size: 12px;
@@ -185,7 +249,7 @@ input:focus~.highlight {
     border-width: 0;
     outline: none;
     border-radius: 2px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
 
     background-color: #ffffff;
     color: black;

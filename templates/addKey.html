@@ -1,0 +1,68 @@
+<html lang="en">
+
+<head>
+    <title>Add Razorpay keys</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+    <!-- <link href="http://18.206.245.117/static/styles.css" rel="stylesheet"> -->
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="card">
+            <h2>Enter the razorpay key and value:</h2>
+                <div class={{responseClassAdd}}>{{responseMessageAdd}}</div>
+            <p>
+            <form method="post" action="/addkey">
+                <div class="group">
+                    <input type="text" name="secretKey" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>secretKey</label>
+                </div>
+                <div class="group">
+                    <input type="text" name="key" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>key</label>
+                </div>
+                <div class="group">
+                    <input type="text" name="value" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>value</label>
+                </div>
+                <button class="btn" type="submit">Add</button>
+            </form>
+            </p>
+        </div>
+        <div class="card">
+            <h2>Enter the key to delete:</h2><link href="http://18.206.245.117/static/styles.css" rel="stylesheet">
+            <p>
+            <form method="post" action="/deletekey">
+                <div class="group">
+                    <input type="text" name="secretKey" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>secretKey</label>
+                </div>
+                <div class="group">
+                    <input type="text" name="key" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>key</label>
+                </div>
+                <button class="btn" type="submit">Delete</button>
+            </form>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+    <a href="/form"  style="text-decoration:none;" target="_blank" rel="noopener noreferrer"><button class="btn">Check Reference Number</button></a>
+    
+    </div>
+
+
+</body>
+
+</html>
