@@ -14,7 +14,7 @@ tableName = "razorpay_details"
 
 def getDB():
     mydb = mysql.connector.connect(
-        host="localhost",
+        host="http://18.206.245.117",
         user="root",
         password="",
         database="db"
