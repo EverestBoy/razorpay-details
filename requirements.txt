@@ -3,3 +3,4 @@ fastapi
 uvicorn
 Jinja2
 python-multipart
+mysql-connector-python

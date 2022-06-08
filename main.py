@@ -8,6 +8,18 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Request
 from datetime import datetime as dt
+import mysql.connector
+
+tableName = "razorpay_details"
+
+def getDB():
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="db"
+    )
+    return mydb
 
 
 app = FastAPI()
@@ -30,26 +42,22 @@ def getPaymentInformation(paymentId):
     message = "failure, api key doesnot exist"
     amount = ""
     paymentId = paymentId.strip()
-    success, message, date, email, contact, address, merchantOrderId, accountId, amount, tax = None, None, None, None, None, None, None, None, None, None
+    message, date, email, contact, address, merchantOrderId, accountId, amount, tax = None, None, None, None, None, None, None, None, None
     try:
-        keyFile = open("keyvalue.txt", 'r')
-        keyText = keyFile.read()
-        keyFile.close()
+        db = getDB()
+        mycursor = db.cursor()
+        mycursor.execute(f"SELECT razor_key, key_value FROM {tableName}")
 
-        keyText = keyText.split("$")
-        print(keyText)
+        myresult = mycursor.fetchall()
 
         clientList = []
-
-        for keys in keyText:
-            if keys.strip() != "":
-                try:
-                    keyvalue =keys.split("#")
-                    print(keys)
-                    print(keyvalue[0], keyvalue[1])
-                    clientList.append(razorpay.Client(auth=(keyvalue[0], keyvalue[1])))
-                except Exception as e:
-                    print(e)
+        for x in myresult:
+            try:
+                key = x[0]
+                value = x[1]
+                clientList.append(razorpay.Client(auth=(key, value)))
+            except Exception as e:
+                print(e)
 
         for client in clientList:
             try:
@@ -58,12 +66,38 @@ def getPaymentInformation(paymentId):
                 print(response)
                 email = response["email"]
                 date = dt.fromtimestamp(response["created_at"])
-                contact = response["contact"]
-                address = response["notes"]["address"]
-                merchantOrderId = response["notes"]["merchant_order_id"]
-                accountId = response["account_id"]
-                amount = response["currency"]+" "+str(response["amount"]/100.0)
-                tax = response["tax"]
+                print("printing")
+                try:
+                    contact = response["contact"]
+                except Exception as e:
+                    print(e)
+                
+                try:
+                    address = response["notes"]["address"]
+                except Exception as e:
+                    print(e)
+                
+                try:
+                    merchantOrderId = response["notes"]["merchant_order_id"]
+                except Exception as e:
+                    print(e)
+                
+                try:
+                    accountId = response["account_id"]
+                except Exception as e:
+                    print(e)
+                
+                try:
+                    amount = response["currency"]+" "+str(response["amount"]/100.0)
+                except Exception as e:
+                    print(e)
+                
+                try:
+                    tax = response["tax"]
+                except Exception as e:
+                    print(e)
+                print("printing")
+                print(message, date, email, contact, address, merchantOrderId, accountId, amount, tax)
                 break
             except Exception as e:
                 print(paymentId)
@@ -138,10 +172,16 @@ def form_post(request: Request):
     return templates.TemplateResponse('addKey.html', context={'request': request, 'responseClass':'hide', 'responseMessage':''})
 
 def addKey(key, value):
-    print(f"adding key and value {key} {value}")
-    keyFile = open("keyvalue.txt", 'a+')
-    keyFile.write(f"${key.strip()}#{value.strip()}$")
-    keyFile.close()
+
+    db = getDB()
+
+    mycursor = db.cursor()
+
+    print(key,value)
+    sql = f"insert into {tableName} (razor_key, key_value) values(%s, %s)"
+    val = (key, value)
+    mycursor.execute(sql, val)
+    db.commit()
     return 'key and value added successfully', success_add_class
 
 @app.post("/addkey")
@@ -165,30 +205,23 @@ def add_api(
 
 
 def deleteKey(key):
-    message = "given key doesnot exist"
-    response = failure_delete_class
-    file = open("keyvalue.txt", 'r')
-    content = file.read()
-    file.close()
-    contentList = content.split("$")
-    newContent = []
-    for contentItem in contentList:
-        contentItem = contentItem.strip()
-        if contentItem != "":
-            contentItemSplitted = contentItem.split("#")
-            print(contentItemSplitted)
-            if contentItemSplitted[0] == key:
-                message = f"key: {key} successfully deleted"
-                response = success_delete_class
-            else: 
-                newContent.append("$"+contentItem+"$")
-    
-    print(newContent)
-    newContent = "$".join(newContent)
-    file = open("keyvalue.txt", 'w')
-    content = file.write(newContent)
-    file.close()
 
+    message = f"ERROR, key: {key} nor found!"
+    response = failure_delete_class
+
+    db = getDB()
+    mycursor = db.cursor()
+
+    sql = f"DELETE FROM {tableName} WHERE razor_key = '{key}'"
+
+    mycursor.execute(sql)
+
+    db.commit()
+
+    if mycursor.rowcount> 0:
+        message = f"key: {key} successfully deleted"
+        response = success_delete_class
+    
     return message, response
 
 
