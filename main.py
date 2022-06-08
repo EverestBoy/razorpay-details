@@ -140,7 +140,7 @@ def form_post(request: Request):
 def addKey(key, value):
     print(f"adding key and value {key} {value}")
     keyFile = open("keyvalue.txt", 'a+')
-    keyFile.write(f"{key.strip()}#{value.strip()}$")
+    keyFile.write(f"${key.strip()}#{value.strip()}$")
     keyFile.close()
     return 'key and value added successfully', success_add_class
 
@@ -181,7 +181,7 @@ def deleteKey(key):
                 message = f"key: {key} successfully deleted"
                 response = success_delete_class
             else: 
-                newContent.append(contentItem)
+                newContent.append("$"+contentItem+"$")
     
     print(newContent)
     newContent = "$".join(newContent)
