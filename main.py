@@ -10,14 +10,14 @@ from fastapi import FastAPI, Request
 from datetime import datetime as dt
 import mysql.connector
 
-tableName = "table name"
+tableName = "razorpay_details"
 
 def getDB():
     mydb = mysql.connector.connect(
-        host="db path",
-        user="your user name",
-        password="your password",
-        database="db name"
+        host="localhost",
+        user="galabpo",
+        password="password",
+        database="db"
     )
     return mydb
 
