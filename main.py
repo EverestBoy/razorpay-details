@@ -40,6 +40,7 @@ secretKeyMain = "secret"
 
 def getPaymentInformation(paymentId):
     message = "failure, api key doesnot exist"
+    otherContent = "hide"
     amount = ""
     paymentId = paymentId.strip()
     message, date, email, contact, address, merchantOrderId, accountId, amount, tax = None, None, None, None, None, None, None, None, None
@@ -62,10 +63,17 @@ def getPaymentInformation(paymentId):
         for client in clientList:
             try:
                 message = "success"
+                otherContent = "show"
                 response = client.payment.fetch(paymentId)
                 print(response)
-                email = response["email"]
-                date = dt.fromtimestamp(response["created_at"])
+                try:
+                    email = response["email"]
+                except Exception as e:
+                    print(e)
+                try:
+                    date = dt.fromtimestamp(response["created_at"])
+                except Exception as e:
+                    print(e)
                 print("printing")
                 try:
                     contact = response["contact"]
@@ -96,37 +104,57 @@ def getPaymentInformation(paymentId):
                     tax = response["tax"]
                 except Exception as e:
                     print(e)
-                print("printing")
-                print(message, date, email, contact, address, merchantOrderId, accountId, amount, tax)
                 break
             except Exception as e:
                 print(paymentId)
                 print(e)
+                otherContent = "hide"
                 message = "failure "+ str(e)
     except Exception as e:
         print(e)
-    return  message, paymentId, date, email, contact, address, merchantOrderId, accountId, amount, tax
+    return  otherContent, message, paymentId, date, email, contact, address, merchantOrderId, accountId, amount, tax
 
 
 
 
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
+def read_root(request: Request):
+    result = ""
+    return templates.TemplateResponse('form.html', context={'request': request, 'result': result, 'amount':'', 'showResult':'hide', 'otherContent':'hide'})
+
+@app.post("/")
+def read_root_post(request: Request, paymentId: str = Form(...)):
+    otherContent, message, paymentId, date, email, contact, address, merchantOrderId, accountId, amount, tax = getPaymentInformation(paymentId)
+    return templates.TemplateResponse('form.html', context={
+            'request': request, 
+            'otherContent': otherContent,
+            'id': paymentId,
+            'date': str(date),
+            'email': email,
+            'contact': contact,
+            'address': address,
+            'merchantOrderId': merchantOrderId,
+            'accountId': accountId,
+            'amount':amount, 
+            'tax': tax,
+            'message':message, 
+            'showResult':'show'
+        })
 
 
 @app.get("/form")
 def form_post(request: Request):
     result = ""
-    return templates.TemplateResponse('form.html', context={'request': request, 'result': result, 'amount':'', 'showResult':'hide'})
+    return templates.TemplateResponse('form.html', context={'request': request, 'result': result, 'amount':'', 'showResult':'hide', 'otherContent':'hide'})
 
 
 
 @app.post("/form")
 def form_post(request: Request, paymentId: str = Form(...)):
-    message, paymentId, date, email, contact, address, merchantOrderId, accountId, amount, tax = getPaymentInformation(paymentId)
+    otherContent, message, paymentId, date, email, contact, address, merchantOrderId, accountId, amount, tax = getPaymentInformation(paymentId)
     return templates.TemplateResponse('form.html', context={
             'request': request, 
+            'otherContent': otherContent,
             'id': paymentId,
             'date': str(date),
             'email': email,

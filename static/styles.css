@@ -4,6 +4,9 @@ h1 {
 .show {
     display: inline;
 }
+.hide {
+    display: none;
+}
 html,
 body {
     height: 100%;
@@ -60,9 +63,6 @@ body {
     margin: auto;
     padding: 10px;
     background-color: #ffccbc;
-}
-.hide {
-    display: none;
 }
 .group {
     margin-top: 32px;
@@ -234,14 +234,26 @@ input:focus~.highlight {
     }
 }
 
+.width-150 {
+    width: 150px;
+}
+
+.center-text {
+    align-items: center;
+    padding-top: 16px;
+}
+
+
 .btn {
+    font-size: 15px;
     position: relative;
     width: 150px;
     height: 48px;
+    text-align: center;
 
-    display: block;
-    margin: 30px auto;
-    padding: 0;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 16px;
     cursor: pointer;
 
     overflow: hidden;

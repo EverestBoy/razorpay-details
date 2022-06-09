@@ -15,23 +15,32 @@
                     <span class="bar"></span>
                     <label>ref number</label>
                 </div>
-                <button class="btn" type="submit">Submit</button>
+                <p><h3>{{ message }}</h3></p>
+                <div class="row">
+                    <button class="btn" type="submit">Submit</button>
+                    <a class="btn" href="/addkey" style="text-decoration:none;"><div class="center-text">Add Key</div></a>
+                </div>
+                
             </form>
         </p>
         <!-- date, email, contact, address, merchantOrderId, accountId, amount, tax -->
-        <p><h3 class={{showResult}}>
-            <p>Message: {{ message }}</p>
-            <p>id: {{ id }}</p>
-            <p>Date: {{ date }}</p>
-            <p>Email: {{ email }}</p>
-            <p>Contact: {{ contact }}</p>
-            <p>Address: {{ address }}</p>
-            <p>Amount: {{ amount }}</p>
-            <p>Tax: {{ tax }}</p>
-            <p>Merchant Order Id: {{ merchantOrderId }}</p>
-            <p>Account Id: {{ accountId }}</p>        
-        </h3></p>
-        <a href="/addkey" style="text-decoration:none;" target="_blank" rel="noopener noreferrer"><button class="btn">Add Key</button></a>
+        
+        
+    </div>
+    <div class={{otherContent}}>
+        <div class="card">
+            <h3>
+                <p>id: {{ id }}</p>
+                <p>Date: {{ date }}</p>
+                <p>Email: {{ email }}</p>
+                <p>Contact: {{ contact }}</p>
+                <p>Address: {{ address }}</p>
+                <p>Amount: {{ amount }}</p>
+                <p>Tax: {{ tax }}</p>
+                <p>Merchant Order Id: {{ merchantOrderId }}</p>
+                <p>Account Id: {{ accountId }}</p>
+            </h3>
+        </div>
     </div>
 
 
