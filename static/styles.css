@@ -251,7 +251,6 @@ input:focus~.highlight {
     height: 48px;
     text-align: center;
 
-    margin-left: 16px;
     margin-right: 16px;
     margin-bottom: 16px;
     cursor: pointer;
