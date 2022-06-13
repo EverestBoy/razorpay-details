@@ -11,13 +11,12 @@ from datetime import datetime as dt
 import mysql.connector
 
 tableName = "razorpay_details"
-
 def getDB():
     mydb = mysql.connector.connect(
-        host="localhost",
-        user="galabpo",
-        password="password",
-        database="db"
+        host="razorpayaws.cy8vmnjrajdv.ap-southeast-1.rds.amazonaws.com",
+        user="gp",
+        password="KdiHYjd$kjdss^ldfj123",
+        database="razorpay"
     )
     return mydb
 
